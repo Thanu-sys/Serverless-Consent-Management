@@ -270,25 +270,6 @@ npm run build
 - Input validation and sanitization
 - Error handling without data exposure
 
-## 🐛 Troubleshooting
-
-### **Common Issues:**
-
-1. **Backend Connection Failed:**
-   - Check if backend server is running
-   - Verify API URL in environment variables
-   - Check CORS settings on backend
-
-2. **Consent Not Saving:**
-   - Check browser console for errors
-   - Verify backend endpoints are working
-   - Check network tab for failed requests
-
-3. **UI Not Loading:**
-   - Clear browser cache
-   - Check for JavaScript errors
-   - Verify all dependencies are installed
-
 ### **Debug Mode:**
 - Open browser developer tools
 - Check Console tab for errors
@@ -298,7 +279,6 @@ npm run build
 ## 📈 Performance
 
 ### **Optimizations:**
-- Lazy loading of dashboard components
 - Efficient state management
 - Optimized API calls
 - Responsive image handling
