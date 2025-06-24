@@ -1,0 +1,8 @@
+Flask==2.2.5
+Flask-SQLAlchemy==3.0.5
+Flask-CORS==4.0.0
+pg8000==1.30.5
+python-dotenv==1.0.0
+serverless-wsgi==3.0.0
+SQLAlchemy==1.4.41
+requests==2.31.0 
