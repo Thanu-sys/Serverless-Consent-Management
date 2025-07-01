@@ -1,0 +1,40 @@
+service: consent-management-system
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+  environment:
+    DATABASE_URL: ${env:DATABASE_URL}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - rds-db:connect
+          Resource: ${env:RDS_ARN}
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+
+custom:
+  wsgi:
+    app: app.app
+    packRequirements: true
+  pythonRequirements:
+    dockerizePip: true
+    layer:
+      name: python-deps
+      description: Python dependencies
+
+functions:
+  api:
+    handler: wsgi.handler
+    events:
+      - http:
+          path: /api/{proxy+}
+          method: any
+          cors: true 
