@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import './App.css';
-import { getAnonymousUserId } from './utils/anonymousId';
-
-const userId = getAnonymousUserId();
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
@@ -21,11 +18,7 @@ function App() {
   const [stats, setStats] = useState(null);
   const [activeTab, setActiveTab] = useState('consent');
 
-  useEffect(() => {
-    initializeApp();
-  }, []);
-
-  const initializeApp = async () => {
+  const initializeApp = useCallback(async () => {
     try {
       setLoading(true);
       // Initialize or retrieve user ID
@@ -48,7 +41,11 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    initializeApp();
+  }, [initializeApp]);
 
   const fetchPurposes = async () => {
     try {
@@ -143,12 +140,6 @@ function App() {
 
   const getConsentStatus = (purposeId) => {
     return consents[purposeId] !== undefined ? consents[purposeId] : null;
-  };
-
-  const getConsentStatusText = (purposeId) => {
-    const status = getConsentStatus(purposeId);
-    if (status === null) return 'Not set';
-    return status ? 'Allowed' : 'Denied';
   };
 
   const getPurposeIcon = (purposeName) => {
